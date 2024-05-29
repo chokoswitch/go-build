@@ -15,5 +15,3 @@ require (
 	github.com/mattn/go-shellwords v1.0.12 // indirect
 	golang.org/x/sys v0.14.0 // indirect
 )
-
-replace github.com/curioswitch/go-build => ../
