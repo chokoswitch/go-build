@@ -22,8 +22,6 @@ func DefineTasks(opts ...Option) {
 	// -v=false can still be used to disable it.
 	_ = flag.Lookup("v").Value.Set("true")
 
-	command := flag.String("cmd", "", "Command to execute with runall.")
-
 	conf := config{
 		artifactsPath:   "out",
 		buildFolder:     "build",
@@ -197,12 +195,10 @@ func DefineTasks(opts ...Option) {
 			Name:  "runall",
 			Usage: "Runs a command in each module in the workspace.",
 			Action: func(a *goyek.A) {
-				if *command == "" {
-					a.Error("missing -cmd flag required for runall")
-					return
-				}
+				command := strings.Join(flag.CommandLine.Args(), " ")
+				print(command)
 				for _, dir := range modDirs(a) {
-					cmd.Exec(a, *command, cmd.Dir(dir))
+					cmd.Exec(a, command, cmd.Dir(dir))
 				}
 			},
 		}))
